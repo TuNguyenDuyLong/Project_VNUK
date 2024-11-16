@@ -1,0 +1,137 @@
+.timetable-container {
+  width: 100%;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.timetable-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.timetable-table {
+  width: 100%;
+  border-collapse: collapse; /* Để các ô bảng nối vào nhau */
+}
+
+.timetable-table th, .timetable-table td {
+  border: 1px solid #000; /* Đặt đường viền cho các ô */
+  padding: 8px;
+  text-align: center;
+}
+
+.timetable-table th {
+  background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+}
+
+.timetable-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Tô màu nền cho các hàng chẵn */
+}
+.timetable-table tr {
+    font-size: 1.4rem;
+}
+.timetable-table tr:hover {
+  background-color: #f1f1f1; /* Tô màu khi hover qua các hàng */
+}
+.timetable-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.timetable-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #000000;
+}
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-container select {
+  padding: 8px;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 30%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-container select:focus {
+  border-color: #007bff;
+}
+
+.filter-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 10%;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filter-container button:hover {
+  background-color: #0056b3;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.result-table th, .result-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.result-table th {
+  background-color: #5B5B5B;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.result-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.result-table tr:hover {
+  background-color: #f1f1f1;
+}
+.filter-container input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 30%; /* Chiều rộng giống với các dropdown */
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.filter-container input:focus {
+  border-color: #007bff; /* Màu viền khi input được focus */
+}
+
+/* Bạn cũng có thể thêm một chút khoảng cách bên trái cho input */
+.filter-container input {
+  margin-left: 0;
+}
+// Null value
+.Null_value {
+  text-align: 'center';
+  font-size: 1.6rem;
+}
