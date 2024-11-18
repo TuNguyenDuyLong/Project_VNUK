@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './Tea_CreateNoteti.scss';
 
 const Tea_CreateNoteti = () => {
-    const [address, setAddress] = useState('');
+    const [subjectTaught, setSubjectTaught] = useState('');
+    const [classTaught, setClassTaught] = useState('');
     const [subjectID, setSubjectID] = useState('');
     const [subject, setSubject] = useState('');
     const [room, setRoom] = useState('');
@@ -11,8 +12,38 @@ const Tea_CreateNoteti = () => {
     const [classperiod, setClassperiod] = useState('');
     const [note, setNote] = useState('');
 
+    // State để lưu danh sách các thông báo đã tạo
+    const [notifications, setNotifications] = useState([]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Tạo đối tượng thông báo mới từ các giá trị nhập vào
+        const newNotification = {
+            subjectTaught,
+            classTaught,
+            subjectID,
+            subject,
+            room,
+            week,
+            dayofweek,
+            classperiod,
+            note
+        };
+
+        // Cập nhật danh sách thông báo
+        setNotifications([...notifications, newNotification]);
+
+        // Reset form sau khi submit
+        setSubjectTaught('');
+        setClassTaught('');
+        setSubjectID('');
+        setSubject('');
+        setRoom('');
+        setWeek('');
+        setDayofweek('');
+        setClassperiod('');
+        setNote('');
     };
 
     return (
@@ -20,33 +51,32 @@ const Tea_CreateNoteti = () => {
             <h1>TẠO THÔNG BÁO NGHỈ</h1>
             <form onSubmit={handleSubmit}>
                 <div className="Dropdownlist">
-
                     <div className="form-group">
-                        <label htmlFor="address">Môn dạy :</label>
+                        <label htmlFor="subjectTaught">Môn dạy :</label>
                         <select
-                            id="address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            id="subjectTaught"
+                            value={subjectTaught}
+                            onChange={(e) => setSubjectTaught(e.target.value)}
                             required
                         >
                             <option value="">Chọn môn</option>
-                            <option value="">Môn A</option>
-                            <option value="">Môn B</option>
-                            <option value="">Môn C</option>
+                            <option value="Môn A">Môn A</option>
+                            <option value="Môn B">Môn B</option>
+                            <option value="Môn C">Môn C</option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="address">Lớp dạy :</label>
+                        <label htmlFor="classTaught">Lớp dạy :</label>
                         <select
-                            id="address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            id="classTaught"
+                            value={classTaught}
+                            onChange={(e) => setClassTaught(e.target.value)}
                             required
                         >
                             <option value="">Chọn lớp</option>
-                            <option value="">Lớp 46K14</option>
-                            <option value="">Lớp 46K21.</option>
-                            <option value="">Lớp 46K21.1</option>
+                            <option value="Lớp 46K14">Lớp 46K14</option>
+                            <option value="Lớp 46K21">Lớp 46K21</option>
+                            <option value="Lớp 46K21.1">Lớp 46K21.1</option>
                         </select>
                     </div>
                 </div>
@@ -61,10 +91,10 @@ const Tea_CreateNoteti = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="content">Tên môn học:</label>
+                    <label htmlFor="subject">Tên môn học:</label>
                     <input
                         type="text"
-                        id="content"
+                        id="subject"
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
                         required
@@ -112,16 +142,35 @@ const Tea_CreateNoteti = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="note">Ghi chú:</label>
-                    <input
-                        type="text"
+                    <textarea
                         id="note"
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
+                        rows="4"
+                        cols="50"
                         required
                     />
                 </div>
-                <button className='btn_submit' type="submit">Thêm mới</button>
+                <button className="btn_submit" type="submit">Thêm mới</button>
             </form>
+
+            <h2>DANH SÁCH THÔNG BÁO</h2>
+            <div className="notification-list">
+                {notifications.map((notif, index) => (
+                    <div className="notification-item" key={index}>
+                        <h3>Thông báo nghỉ {index + 1}</h3>
+                        <div><strong>Môn dạy:</strong> {notif.subjectTaught}</div>
+                        <div><strong>Lớp dạy:</strong> {notif.classTaught}</div>
+                        <div><strong>Mã môn học:</strong> {notif.subjectID}</div>
+                        <div><strong>Tên môn học:</strong> {notif.subject}</div>
+                        <div><strong>Phòng:</strong> {notif.room}</div>
+                        <div><strong>Tuần:</strong> {notif.week}</div>
+                        <div><strong>Thứ:</strong> {notif.dayofweek}</div>
+                        <div><strong>Tiết học:</strong> {notif.classperiod}</div>
+                        <div><strong>Ghi chú:</strong> {notif.note}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

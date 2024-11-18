@@ -3,6 +3,19 @@
   margin: 0;
   box-sizing: border-box;
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5; 
+  padding-top: 180px;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 :root {
   --white-color: #fff;
   --black-color: #000;

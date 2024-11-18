@@ -2,36 +2,34 @@ import React, { useState, useEffect } from 'react';
 import './TimeTable.scss';
 
 const TimeTable = () => {
-    // const [years, setYears] = useState([]);
     const [semesters, setSemesters] = useState([]);
-    // const [weeks, setWeeks] = useState([]);
-    // const [selectedYear, setSelectedYear] = useState('');
     const [selectedSemester, setSelectedSemester] = useState('');
-    // const [selectedWeek, setSelectedWeek] = useState('');
     const [tableData, setTableData] = useState([]);
-    // const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        // Fetch dữ liệu cho các bộ lọc từ backend
-        // fetch('/api/years')
-        //     .then(response => response.json())
-        //     .then(data => setYears(data));
-
-        fetch('/api/semesters')
-            .then(response => response.json())
-            .then(data => setSemesters(data));
-
-        // fetch('/api/weeks')
-        //     .then(response => response.json())
-        //     .then(data => setWeeks(data));
+        // Dữ liệu mock
+        const mockSemesters = [
+            { semestersID: '1', semestersName: 'Kỳ 1 - 24 - 25' },
+            { semestersID: '2', semestersName: 'Kỳ 2 - 24 - 25' },
+        ];
+        setSemesters(mockSemesters);
     }, []);
 
     const handleFilterChange = () => {
-        // Fetch dữ liệu thời khóa biểu dựa trên các bộ lọc đã chọn và mã sinh viên
-        fetch(`/api/timetable?semester=${selectedSemester}`)
+        if (!selectedSemester) {
+            setTableData([]);
+            return;
+        }
+        // Gọi API để lấy dữ liệu thời khóa biểu (nếu có)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/api/timetable?semester=${selectedSemester}`)
             .then(response => response.json())
-            .then(data => setTableData(data))
-            .catch(error => console.error('Error fetching data:', error));
+            .then(data => {
+                setTableData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setTableData([]); // Nếu có lỗi, không hiển thị dữ liệu
+            });
     };
 
     return (
@@ -39,31 +37,13 @@ const TimeTable = () => {
             <h2 className="timetable-title">TRA CỨU THỜI KHÓA BIỂU</h2>
 
             <div className="filter-container">
-                {/* <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="Mã sinh viên"
-                    className="search-input"
-                /> */}
-                {/* <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
-                    <option value="">Chọn năm học</option>
-                    {years.map(year => (
-                        <option key={year.id} value={year.id}>{year.name}</option>
-                    ))}
-                </select> */}
                 <select value={selectedSemester} onChange={e => setSelectedSemester(e.target.value)}>
-                    <option value="">Chọn học kỳ</option>
                     {semesters.map(semester => (
-                        <option key={semester.id} value={semester.id}>{semester.name}</option>
+                        <option key={semester.semestersID} value={semester.semestersID}>
+                            {semester.semestersName}
+                        </option>
                     ))}
                 </select>
-                {/* <select value={selectedWeek} onChange={e => setSelectedWeek(e.target.value)}>
-                    <option value="">Chọn tuần</option>
-                    {weeks.map(week => (
-                        <option key={week.id} value={week.id}>{week.name}</option>
-                    ))}
-                </select> */}
                 <button onClick={handleFilterChange}>Tra cứu</button>
             </div>
 
@@ -96,8 +76,8 @@ const TimeTable = () => {
                         ))}
                     </tbody>
                 </table>
+
             ) : (
-                // Trường hợp không có dữ liệu
                 <table className="result-table">
                     <thead>
                         <tr>
@@ -112,8 +92,10 @@ const TimeTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className='Null_value'>
-                            <td colSpan="8" style={{ textAlign: 'center' }}>Không có dữ liệu nào được tìm thấy</td>
+                        <tr className="Null_value">
+                            <td colSpan="8" style={{ textAlign: 'center' }}>
+                                Không có dữ liệu nào được tìm thấy
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -123,4 +105,3 @@ const TimeTable = () => {
 };
 
 export default TimeTable;
-
